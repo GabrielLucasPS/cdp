@@ -1,0 +1,80 @@
+.loginContainer {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.loginContainer .leftSide {
+  width: 75%;
+  height: 100%;
+  background-image: url("/assets/fotoinicial.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.loginContainer .rightSide {
+  flex: 1;
+  background-color: #06041a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.logo {
+  background-image: url("/assets/logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 60px;
+}
+
+.LoginContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.login,
+.senha {
+  background-color: #fff;
+  border-radius: 10px;
+
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+
+  width: 300px;
+
+  margin-bottom: 30px;
+}
+
+.entrar {
+  background-color: chartreuse;
+  border-radius: 10px;
+
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.criarConta {
+  color: chartreuse;
+  border-radius: 10px;
+
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+
+  cursor: pointer;
+}

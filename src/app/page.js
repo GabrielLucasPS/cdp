@@ -1,4 +1,5 @@
 import style from '../styles/login.module.css';
+import Link from 'next/link'
 
 export default function Home() {
     return (
@@ -12,20 +13,22 @@ export default function Home() {
 
                     </div>
 
-                    <div className={style.LoginContainer}>
-                        <div className={style.login}>
-                            Login
-                        </div>
-                        <div className={style.senha}>
-                            Senha
+                    <div className={style.credentialsContainer}>
+
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Login</div>
+                            <input className={style.login} name="myInput" />
                         </div>
 
-                        <div className={style.entrar}>
-                            Entrar
+                        <div className={style.inputContainer}>
+                            <div className={style.label}>Senha</div>
+                            <input className={style.senha} name="myInput" />
                         </div>
+
+                        <Link className={style.entrar} href="/novopedido">Entrar</Link>
+
                     </div>
-
-                    <div className={style.criarConta}>
+                    <div className={style.criarConta} >
                         Criar conta
                     </div>
                 </div>

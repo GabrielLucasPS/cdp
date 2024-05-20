@@ -91,7 +91,7 @@ export default function Pedidos() {
                             </Select>
                         </div>
                         <div className='inputBox'>
-                            Prioridade
+                            Departamento
                             <Select className="input">
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue placeholder="Departamento" />

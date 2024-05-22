@@ -1,5 +1,5 @@
 import Link from "next/link";
-import "./pedidos.css";
+import "./rastreio.css";
 
 
 export default function DashboardLayout({
@@ -13,10 +13,11 @@ export default function DashboardLayout({
                     <img src="/assets/logo.png" alt="Logo" className="" />
                 </a>
                 <div className="opcoesContainer">
-                    <Link className="opcao ativo" href="/novopedido">Pedidos</Link>
+                    <Link className="opcao " href="/novopedido">Pedidos</Link>
                     <Link className="opcao " href="/novacompra">Compra</Link>
-                    <Link className="opcao " href="/rastreio">Rastreio</Link>
+                    <Link className="opcao ativo" href="/rastreio">Rastreio</Link>
                     <Link className="opcao " href="/pedidos">Pedidos</Link>
+
                 </div>
                 <a className="perfil">
                     <img src="/assets/account_circle.png" alt="Perfil" />

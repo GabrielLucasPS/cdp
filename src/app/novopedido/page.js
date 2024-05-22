@@ -67,7 +67,7 @@ export default function Pedidos() {
                         <div className='inputBox_bottom'>
                             Tipo
                             <Select className="input">
-                                <SelectTrigger className="w-[180px]">
+                                <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Tipo" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -80,7 +80,7 @@ export default function Pedidos() {
                         <div className='inputBox_bottom'>
                             Prioridade
                             <Select className="input">
-                                <SelectTrigger className="w-[180px]">
+                                <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Prioridade" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -93,7 +93,7 @@ export default function Pedidos() {
                         <div className='inputBox'>
                             Departamento
                             <Select className="input">
-                                <SelectTrigger className="w-[180px]">
+                                <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Departamento" />
                                 </SelectTrigger>
                                 <SelectContent>

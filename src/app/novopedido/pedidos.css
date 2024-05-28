@@ -102,6 +102,10 @@
     margin-right: 20px;
 }
 
+.novoPedidoContainer .inputBox_bottom button {
+    color: #06041a;
+}
+
 .novoPedidoContainer .descricaoProduto {
     display: flex;
     justify-content: space-between;

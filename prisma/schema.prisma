@@ -11,14 +11,13 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  username  String    @unique
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
   password  String
-  createdAt DateTime  @default(now())
-  updateUt  DateTime  @updatedAt
-  role      Role      @default(USER)
-  Pedidos   Pedidos[]
+  createdAt DateTime @default(now())
+  updateUt  DateTime @updatedAt
+  role      Role     @default(USER)
 }
 
 enum Role {
@@ -41,23 +40,22 @@ model Entrega {
 
 model Pedidos {
   id             Int       @id @default(autoincrement())
-  numero         Int
+  numero         Int       @default(autoincrement())
   descricao      String
   quantidade     Int
   tipo           String
   prioridade     String
   departamento   String
-  pedidoSalvo    Boolean   @default(false)
+  pedidoSalvo    Boolean?  @default(false)
   embalagem      String?
   fornecedor     String?
   valorTotal     Float?
   prazoPagamento DateTime?
   prazoEntrega   DateTime?
-  status         Status    @default(PEDIDO_RECEBIDO)
-  user           User      @relation(fields: [userId], references: [id], onDelete: NoAction)
-  userId         String
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  status         Status?   @default(PEDIDO_RECEBIDO)
+  userId         String?
+  createdAt      DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
 }
 
 enum Permissao {

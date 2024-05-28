@@ -10,8 +10,12 @@ import { db } from '@/lib/db';
 
 export default async function Pedidos() {
     const session = await getServerSession(authOptions);
-
-    let currentUserId = session?.user.id;
+    const usuario = await db.user.findFirst({
+        where: {
+            id: session?.user.id,
+        },
+    })
+    let currentUserId = usuario?.id;
 
     async function getPedidos(usuarioId: string | undefined) {
         if (session) {
@@ -21,9 +25,7 @@ export default async function Pedidos() {
                         {
                             userId: usuarioId
                         },
-                        {
-                            pedidoSalvo: true
-                        },
+
                     ],
                 },
             });

@@ -8,7 +8,6 @@ const EntregaSchema = z
         clientName: z.string().min(1, "Nome do Cliente Necessario"),
         destination: z.string().min(1, "Destino Necessario"),
         description: z.string().min(1, "Descrição Necessaria"),
-
     })
 
 export async function POST(req: Request) {

@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updateUt  DateTime @updatedAt
+  role      Role     @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Entrega {
+  id             Int      @id @default(autoincrement())
+  driverName     String
+  clientName     String
+  createdAt      DateTime @default(now())
+  updateUt       DateTime @updatedAt
+  curretLocation String?
+  destination    String
+  description    String
+  delivered      Boolean? @default(false)
+  deliverId      Int      @unique @default(autoincrement())
+}
+
+model Pedidos {
+  id             Int       @id @default(autoincrement())
+  numero         Int       @default(autoincrement())
+  descricao      String
+  quantidade     Int
+  tipo           String
+  prioridade     String
+  departamento   String
+  pedidoSalvo    Boolean?  @default(false)
+  embalagem      String?
+  fornecedor     String?
+  valorTotal     Float?
+  prazoPagamento DateTime?
+  prazoEntrega   DateTime?
+  status         Status?   @default(PEDIDO_RECEBIDO)
+  userId         String?
+  createdAt      DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
+}
+
+enum Permissao {
+  USER
+  ADMIN
+}
+
+enum Status {
+  PEDIDO_RECEBIDO
+  FAZENDO_COTACAO
+  COMPRA_REALIZADA
+  COMPRA_ENVIADA
+  COMPRA_RECEBIDA
+  PAGAMENTO_REALIZADO
+}

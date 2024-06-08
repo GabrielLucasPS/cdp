@@ -14,7 +14,7 @@ const TopMenu = () => {
             <div className="opcoesContainer">
                 <Link className={pathName === '/pedidos' ? 'opcao ativo' : 'opcao'} href="/pedidos">Pedidos</Link>
                 <Link className={pathName === '/novopedido' ? 'opcao ativo' : 'opcao'} href="/novopedido">Novo pedido</Link>
-                <Link className={pathName === '/novacompra' ? 'opcao ativo' : 'opcao'} href="/novacompra">Compra</Link>
+                <div className={pathName.includes("/pedidos/") ? 'opcao ativo' : 'opcao'} >Compra</div>
                 <Link className={pathName === '/rastreio' ? 'opcao ativo' : 'opcao'} href="/rastreio">Rastreio</Link>
 
             </div>

@@ -7,3 +7,15 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+
+li[role=status] {
+  background-color: #fff;
+}
+
+.confirmarPedido {
+  transition: all ease 0.3s;
+}
+
+.confirmarPedido:hover {
+  transform: scale(0.98);
+}

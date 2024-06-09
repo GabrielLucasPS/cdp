@@ -19,7 +19,11 @@ export default async function Pedidos() {
 
     async function getPedidos(usuarioId: string | undefined) {
         if (session) {
-            const response = await db.pedidos.findMany({});
+            const response = await db.pedidos.findMany({
+                where: {
+                    pedidoSalvo: false,
+                },
+            });
             return response;
         } else {
             return null;

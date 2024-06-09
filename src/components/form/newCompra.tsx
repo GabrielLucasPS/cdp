@@ -38,8 +38,8 @@ const FormSchema = z.object({
     embalagemPedido: z.string().min(1, "Embalagem do pedido necessario"),
     fornecedorPedido: z.string().min(1, "Fornecedor do pedido necessaria"),
     valorTotalPedido: z.number().min(1, "Valor total do pedido necessario"),
-    prazoPagamentoPedido: z.date(),
-    prazoEntregaPedido: z.date(),
+    prazoPagamentoPedido: z.any(),
+    prazoEntregaPedido: z.any(),
 });
 
 
@@ -63,11 +63,12 @@ type Props = {
         userId: String | null;
         createdAt: Date | null;
         updatedAt: Date | null;
-    } | null
+    }
 }
 
 const NewCompra = ({ userId, pedido }: Props) => {
-
+    let idPedido = pedido.id;
+    console.warn(idPedido)
 
     const router = useRouter()
 
@@ -77,17 +78,16 @@ const NewCompra = ({ userId, pedido }: Props) => {
         defaultValues: {
             embalagemPedido: '',
             fornecedorPedido: '',
-            valorTotalPedido: 0,
-            prazoPagamentoPedido: new Date(),
-            prazoEntregaPedido: new Date()
+            valorTotalPedido: undefined,
+
         },
     }
     );
 
 
     const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-        console.log(values.embalagemPedido, values.fornecedorPedido, values.valorTotalPedido, values.prazoPagamentoPedido, values.prazoEntregaPedido)
-        const response = await fetch('/api/newPedido', {
+        console.warn(values.embalagemPedido, values.fornecedorPedido, values.valorTotalPedido, values.prazoPagamentoPedido, values.prazoEntregaPedido)
+        const response = await fetch('/api/compra', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -98,6 +98,7 @@ const NewCompra = ({ userId, pedido }: Props) => {
                 valorTotal: values.valorTotalPedido,
                 prazoPagamento: values.prazoPagamentoPedido,
                 prazoEntrega: values.prazoEntregaPedido,
+                id: idPedido
             })
         })
 
@@ -112,16 +113,38 @@ const NewCompra = ({ userId, pedido }: Props) => {
                 title: "Erro",
                 description: "Oops! Alguma coisa deu errado :(",
                 variant: 'destructive'
+
             })
         }
     };
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='w-full novoPedidoContainer'>
-                <div className='text-4xl'> {pedido?.id}</div>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='w-full novoPedidoContainer '>
                 <div className='bg-[#06041A]  rounded-lg p-10 h-full w-full flex-col flex justify-between'>
                     <div className='flex justify-between items-center  flex-wrap min-w-full '>
+                        <div className=' flex text-2xl  w-full mb-12 text-zinc-50 items-center justify-between'>
+                            <div className='p-4 max-w-[259px]'>
+                                <h3 className='font-extrabold'>Descrição</h3>
+                                <h3 className='text-base'>{pedido?.descricao}</h3>
+                            </div>
+                            <div className='p-4 max-w-[259px]'>
+                                <h3 className='font-extrabold'>Quantidade</h3>
+                                <h3>{pedido?.quantidade}</h3>
+                            </div>
+                            <div className='p-4 max-w-[259px]'>
+                                <h3 className='font-extrabold'>Tipo</h3>
+                                <h3>{pedido?.tipo}</h3>
+                            </div>
+                            <div className='p-4 max-w-[259px]'>
+                                <h3 className='font-extrabold'>Prioridade</h3>
+                                <h3>{pedido?.prioridade}</h3>
+                            </div>
+                            <div className='p-4 max-w-[259px]'>
+                                <h3 className='font-extrabold'>Departamento</h3>
+                                <h3>{pedido?.departamento}</h3>
+                            </div>
+                        </div>
                         <div className=' flex  w-full mb-12'>
 
                             <FormField
@@ -130,8 +153,8 @@ const NewCompra = ({ userId, pedido }: Props) => {
                                 render={({ field }) => (
                                     <FormItem className='flex flex-col mr-4 w-1/3' >
                                         <FormLabel className='text-3xl text-zinc-100'>Embalagem</FormLabel>
-                                        <FormControl className=' text-xl'>
-                                            <textarea placeholder='Descrição do pedido'  {...field} className='h-32  text-xl rounded-md p-2 resize-none' />
+                                        <FormControl className=''>
+                                            <Input placeholder='Descrição do pedido' type={'text'} {...field} className='h-32 p-10 text-3xl rounded-md  resize-none' />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -143,8 +166,8 @@ const NewCompra = ({ userId, pedido }: Props) => {
                                 render={({ field }) => (
                                     <FormItem className='flex flex-col mr-4 w-1/3' >
                                         <FormLabel className='text-3xl text-zinc-100'>Fornecedor</FormLabel>
-                                        <FormControl className=' text-xl'>
-                                            <textarea placeholder='Descrição do pedido' {...field} className='h-32  text-xl rounded-md p-2' />
+                                        <FormControl className=''>
+                                            <Input placeholder='Descrição do pedido'  {...field} className='h-32 p-10 text-3xl rounded-md  resize-none' />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -156,7 +179,7 @@ const NewCompra = ({ userId, pedido }: Props) => {
                                 render={({ field }) => (
                                     <FormItem className=' mr-4 w-1/3'>
                                         <FormLabel className='text-3xl text-zinc-100'>Valor total</FormLabel>
-                                        <FormControl className='h-32  text-2xl font-bold'>
+                                        <FormControl className='h-32  text-4xl font-bold'>
                                             <Input placeholder='digite a quantidade' type='number' {...field} onChange={event => field.onChange(parseInt(event.target.value))} />
                                         </FormControl>
                                         <FormMessage />
@@ -171,7 +194,7 @@ const NewCompra = ({ userId, pedido }: Props) => {
                                 render={({ field }) => (
                                     <FormItem className=' mr-4 '>
                                         <FormLabel className='text-3xl text-zinc-100'>Prazo de pagamento</FormLabel>
-                                        <FormControl className='h-32  text-[3.95rem] font-bold w-full  '>
+                                        <FormControl className='h-32  text-[3.95rem] font-bold w-full  text-[#06041A]'>
                                             <Input
                                                 className=' w-full '
                                                 type="date"
@@ -194,7 +217,7 @@ const NewCompra = ({ userId, pedido }: Props) => {
                                 render={({ field }) => (
                                     <FormItem className=' mr-4 '>
                                         <FormLabel className='text-3xl text-zinc-100'>Prazo de entrega</FormLabel>
-                                        <FormControl className='h-32  text-[3.95rem] font-bold w-full  '>
+                                        <FormControl className='h-32  text-[3.95rem] font-bold w-full  text-[#06041A]'>
                                             <Input
                                                 className=' w-full '
                                                 type="date"
@@ -222,9 +245,9 @@ const NewCompra = ({ userId, pedido }: Props) => {
 
 
 
-            </form>
+            </form >
 
-        </Form>
+        </Form >
     );
 };
 

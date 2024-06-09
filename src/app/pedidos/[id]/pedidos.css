@@ -73,6 +73,10 @@
     flex-direction: column !important;
 }
 
+.novoPedidoContainer p {
+    color: #fff;
+}
+
 .novoPedidoContainer .pedidoContainer {
     background-color: #06041A;
     color: #FFF;

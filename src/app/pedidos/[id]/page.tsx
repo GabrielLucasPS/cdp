@@ -6,11 +6,14 @@ import { getServerSession, Session } from 'next-auth';
 
 import { authOptions } from '@/lib/auth';
 import NewCompra from '@/components/form/newCompra';
+import { redirect } from 'next/navigation'
 
 
 
 export default async function novaCompra({ params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
+
+
 
     const usuario = await db.user.findFirst({
         where: {
@@ -19,6 +22,7 @@ export default async function novaCompra({ params }: { params: { id: string } })
     })
 
     const ID = parseInt(params.id);
+
     const pedido = await db.pedidos.findFirst({
         where: {
             id: ID,
@@ -27,8 +31,7 @@ export default async function novaCompra({ params }: { params: { id: string } })
     console.log(params.id)
     return (
         <>
-            <div>{pedido?.numero} --- {pedido?.descricao}</div>
-            <NewCompra pedido={pedido} userId={usuario?.id}></NewCompra>
+            <NewCompra pedido={pedido ? pedido : redirect('/pedidos')} userId={usuario?.id}></NewCompra>
         </>
     );
 

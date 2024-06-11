@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+
 import { NextResponse } from "next/server";
 import * as z from 'zod'
 import { any } from "zod";
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
                 tipo: tipoPedido,
                 prioridade: prioridadePedido,
                 departamento: departamentoPedido,
-                userId: Id
+                userId: Id,
             }
         })
 

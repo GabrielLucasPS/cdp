@@ -19,3 +19,42 @@ li[role=status] {
 .confirmarPedido:hover {
   transform: scale(0.98);
 }
+
+.vermelho {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+
+  background-color: #EC0000;
+  height: 140px;
+  font-size: 2.25rem
+    /* 36px */
+  ;
+  line-height: 2.5rem
+    /* 40px */
+  ;
+}
+
+.verde {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+
+  background-color: #26c602;
+  height: 140px;
+  font-size: 2.25rem
+    /* 36px */
+  ;
+  line-height: 2.5rem
+    /* 40px */
+  ;
+}
+
+.verde h2,
+.vermelho h2 {
+  text-align: center;
+}

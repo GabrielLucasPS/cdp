@@ -12,24 +12,14 @@ import {
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+
 import { useRouter } from 'next/navigation';
 import { useToast } from '../ui/use-toast';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
-
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
-import { format } from "date-fns"
 
 
 import { Status } from '@prisma/client';
-import { useState } from 'react';
+
 
 
 
@@ -108,6 +98,7 @@ const NewCompra = ({ userId, pedido }: Props) => {
                 description: "Compra confirmada com sucesso",
             })
             router.push('/pedidos');
+            router.refresh()
         } else {
             toast({
                 title: "Erro",
@@ -238,7 +229,7 @@ const NewCompra = ({ userId, pedido }: Props) => {
 
                     </div>
                     <div className='actionButtons w-full'>
-                        <button type='submit' className="confirmarPedido mr-0 w-full">CONFIRMAR ENTREGA</button>
+                        <button type='submit' className="confirmarPedido mr-0 w-full">CONFIRMAR COMPRA</button>
                     </div>
 
                 </div>

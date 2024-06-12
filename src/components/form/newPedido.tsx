@@ -67,6 +67,7 @@ const NewPedido = ({ userId }: Props) => {
 
         if (response.ok) {
             router.push('/pedidos');
+            router.refresh()
         } else {
             toast({
                 title: "Erro",
@@ -124,7 +125,8 @@ const NewPedido = ({ userId }: Props) => {
                                                 <SelectItem value="Kg">Kg</SelectItem>
                                                 <SelectItem value="L">L</SelectItem>
                                                 <SelectItem value="ml">ml</SelectItem>
-                                                <SelectItem value="unidade">Unidade</SelectItem>
+                                                <SelectItem value="unidade">Un</SelectItem>
+                                                <SelectItem value="metro">m</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </FormItem>

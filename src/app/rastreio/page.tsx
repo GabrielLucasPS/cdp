@@ -6,6 +6,8 @@ import { getServerSession, Session } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { format, formatDate } from 'date-fns';
+import { signOut } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 
 
@@ -13,9 +15,22 @@ export default async function Pedidos() {
     const session = await getServerSession(authOptions);
     const usuario = await db.user.findFirst({
         where: {
-            id: session?.user.id,
+            email: session?.user.email != null ? session.user.email : 'asd',
         },
     })
+
+    if (!usuario?.email) {
+        signOut({
+            redirect: true,
+            callbackUrl: `${window.location.origin}/sign-in`
+        })
+    }
+
+    if (usuario?.role === 'USER') {
+        redirect('/pedidos')
+    }
+
+
     let currentUserId = usuario?.id;
 
     async function getPedidos(usuarioId: string | undefined) {

@@ -18,7 +18,7 @@ const TopMenu = () => {
                 <Link className={pathName === '/rastreio' ? 'opcao ativo' : 'opcao'} href="/rastreio">Rastreio</Link>
 
             </div>
-            <a className="perfil">
+            <a className="perfil cursor-pointer">
 
                 <UserAccountnav></UserAccountnav>
             </a>

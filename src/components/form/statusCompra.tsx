@@ -29,7 +29,7 @@ import { format } from "date-fns"
 
 
 import { Status } from '@prisma/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { $Enums } from "@prisma/client";
 
 type Props = {
@@ -56,13 +56,14 @@ type Props = {
 }
 
 const StatusCompra = ({ userId, pedido }: Props) => {
-
     const router = useRouter()
 
     const { toast } = useToast()
 
-
+    const [abrir, setAbrir] = useState(1);
     const [status, setStatus] = useState<$Enums.Status | null>(pedido.status);
+
+
 
     const alterarStatus = async (idpedido: number, Status: $Enums.Status | null) => {
         console.log('Entro -------------------------------------------')
@@ -82,7 +83,7 @@ const StatusCompra = ({ userId, pedido }: Props) => {
                 title: "Confirmado",
                 description: "Status alterado com sucesso",
             })
-            router.push('/rastreio');
+
             router.refresh()
         } else {
             toast({
@@ -94,22 +95,65 @@ const StatusCompra = ({ userId, pedido }: Props) => {
         }
     }
 
+    useEffect(() => {
+        if (abrir == 1) {
+            setAbrir(2)
+        } else {
+            alterarStatus(pedido.id, status)
+        }
+    }, [status])
+
 
     return (
         <div className='w-full novoPedidoContainer '>
-            <div className='bg-[#06041A]  rounded-lg p-10 h-full w-full flex-col  justify-between  grid grid-cols-3 grid-rows-2 text-zinc-50 gap-2'>
+            <div className='bg-[#06041A]  rounded-lg p-10 h-full w-full flex-col  justify-between  grid grid-cols-3 grid-rows-2 text-zinc-50 gap-4'>
 
-                <div onClick={() => setStatus('FAZENDO_COTACAO')}>
-                    <h2>Compra Realizada</h2>
-                    <h2>PEDIDO RECEBIDO</h2>
-                </div>
-                <div>
-                    <h2>Status: {status}</h2>
-                    <h2>PEDIDO RECEBIDO</h2>
-                    <div className='text-3xl text-red-500' onClick={() => alterarStatus(pedido.id, status)}>
-                        AlterarStatus
+                <div className='p-4  rounded-lg flex flex-col justify-center shadow-sm shadow-slate-100'>
+                    <h2 className='text-4xl font-bold w-full text-center mb-8 h-[120px] '>PEDIDO RECEBIDO</h2>
+                    <div className={status != null ? 'verde' : 'vermelho'} onClick={() => setStatus('PEDIDO_RECEBIDO')}>
+                        <h2 >CONFIRMAR PEDIDO</h2>
                     </div>
                 </div>
+
+                <div className='p-4  rounded-lg flex flex-col justify-center shadow-sm shadow-slate-100'>
+                    <h2 className='text-4xl font-bold w-full text-center mb-8 h-[120px] '>FAZENDO COTAÇÃO</h2>
+                    <div className={status != null && status != 'PEDIDO_RECEBIDO' ? 'verde' : 'vermelho'} onClick={() => setStatus('FAZENDO_COTACAO')}>
+                        <h2 >CONFIRMAR COTAÇÃO</h2>
+                    </div>
+                </div>
+
+                <div className='p-4  rounded-lg flex flex-col justify-center shadow-sm shadow-slate-100'>
+                    <h2 className='text-4xl font-bold w-full text-center mb-8 h-[120px] '>COMPRA REALIZADA</h2>
+                    <div className={status != null && status != 'PEDIDO_RECEBIDO' && status != 'FAZENDO_COTACAO'
+                        ? 'verde' : 'vermelho'} onClick={() => setStatus('COMPRA_REALIZADA')}>
+                        <h2>CONFIRMAR COMPRA</h2>
+                    </div>
+                </div>
+
+                <div className='p-4  rounded-lg flex flex-col justify-center shadow-sm shadow-slate-100'>
+                    <h2 className='text-4xl font-bold w-full text-center mb-8 h-[120px] '>COMPRA ENVIADA</h2>
+                    <div className={status != null && status != 'PEDIDO_RECEBIDO' && status != 'FAZENDO_COTACAO' && status != 'COMPRA_REALIZADA'
+                        ? 'verde' : 'vermelho'} onClick={() => setStatus('COMPRA_ENVIADA')}>
+                        <h2>CONFIRMAR ENVIO</h2>
+                    </div>
+                </div>
+
+                <div className='p-4  rounded-lg flex flex-col justify-center shadow-sm shadow-slate-100'>
+                    <h2 className='text-4xl font-bold w-full text-center mb-8 h-[120px] '>COMPRA RECEBIDA</h2>
+                    <div className={status != null && status != 'PEDIDO_RECEBIDO' && status != 'FAZENDO_COTACAO' && status != 'COMPRA_REALIZADA' && status != 'COMPRA_ENVIADA'
+                        ? 'verde' : 'vermelho'} onClick={() => setStatus('COMPRA_RECEBIDA')}>
+                        <h2>CONFIRMAR RECIBO</h2>
+                    </div>
+                </div>
+
+                <div className='p-4  rounded-lg flex flex-col justify-center shadow-sm shadow-slate-100'>
+                    <h2 className='text-4xl font-bold w-full text-center mb-8 h-[120px] '>PAGAMENTO REALIZADO</h2>
+                    <div className={status != null && status != 'PEDIDO_RECEBIDO' && status != 'FAZENDO_COTACAO' && status != 'COMPRA_REALIZADA' && status != 'COMPRA_ENVIADA' && status != 'COMPRA_RECEBIDA'
+                        ? 'verde' : 'vermelho'} onClick={() => setStatus('PAGAMENTO_REALIZADO')}>
+                        <h2>CONFIRMAR PAGAMENTO</h2>
+                    </div>
+                </div>
+
             </div>
 
 

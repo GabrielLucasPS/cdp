@@ -22,7 +22,7 @@ export default async function Pedidos() {
     if (!usuario?.email) {
         signOut({
             redirect: true,
-            callbackUrl: `${window.location.origin}/sign-in`
+            callbackUrl: `/sign-in`
         })
     }
 

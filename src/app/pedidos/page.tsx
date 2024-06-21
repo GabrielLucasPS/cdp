@@ -12,7 +12,6 @@ import { signOut } from 'next-auth/react';
 export default async function Pedidos() {
     const session = await getServerSession(authOptions);
 
-
     const usuario = await db.user.findFirst({
         where: {
             email: session?.user.email != null ? session.user.email : 'asd',
@@ -22,7 +21,7 @@ export default async function Pedidos() {
     if (!usuario?.email) {
         signOut({
             redirect: true,
-            callbackUrl: `${window.location.origin}/sign-in`
+            callbackUrl: `/sign-in`
         })
     }
 
